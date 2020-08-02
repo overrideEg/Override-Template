@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:testapp/core/services/preference/preference.dart';
 
-class Themes {
-  static List<ThemeData> get all => [cyan, customTheme];
-
-  static final cyan = ThemeData(
-    primaryColor: Colors.white,
-    primaryColorBrightness: Brightness.light,
-    accentColor: Color.fromRGBO(0, 158, 164, 1),
-    primarySwatch: Colors.yellow,
-    textTheme: GoogleFonts.cairoTextTheme(TextTheme(
-      headline: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-      title: TextStyle(fontSize: 24),
-      body1: TextStyle(fontSize: 12),
-      body2: TextStyle(fontSize: 18),
-    )).apply(
-      bodyColor: Colors.white,
-      // displayColor: Colors.blue,
-    ),
-    buttonTheme: ButtonThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0))),
-    accentIconTheme: IconThemeData(color: Colors.cyan),
+class ThemeProvider with ChangeNotifier {
+  bool isDark;
+  ThemeProvider() {
+    isDark = Preference.getBool(PrefKeys.isDark) ?? true;
+  }
+  ThemeData dark = ThemeData(
+    primaryColor: Color(0xffab351c),
+    // textTheme: TextTheme().apply(bodyColor: Colors.white),
+    iconTheme: IconThemeData(color: Colors.black),
+    buttonTheme: ButtonThemeData(buttonColor: Color(0xffab351c)),
+    scaffoldBackgroundColor: Colors.white,
+    accentColor: Color(0xffab351c),
   );
 
-  static final customTheme = ThemeData(
-      fontFamily: 'Tomica',
-      primarySwatch: Colors.blue,
-      iconTheme: IconThemeData(color: Colors.blue.withAlpha(230), size: 35),
-      textTheme: TextTheme(
-        body1: TextStyle(color: Colors.white),
-      ));
-}
+  ThemeData light = ThemeData(
+    primaryColor: Colors.blueAccent,
+    // textTheme: TextTheme(body1: TextStyle(color: Colors.white).apply()),
+    // textTheme: TextTheme().apply(bodyColor: Colors.orange, displayColor: Colors.orange),
 
-class ThemeProvider with ChangeNotifier {
-  int themeIndex;
+    iconTheme: IconThemeData(color: Colors.black),
+    buttonTheme: ButtonThemeData(buttonColor: Colors.blueAccent),
+    scaffoldBackgroundColor: Colors.white,
+    accentColor: Colors.blueAccent,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        fontFamily: "TeXGyreAdventor-Regular",
+        fontSize: 11.181839942932129,
+        color: Color(0xff939598),
+      ),
+      hintStyle: TextStyle(
+        fontFamily: "NeusaNextW00-Regular",
+        fontSize: 10.358949661254883,
+        color: Color(0xff758091),
+      ),
+    ),
+  );
 
-  ThemeProvider() {
-    setTheme(Preference.getInt(PrefKeys.themeIndex) ?? 0);
-  }
-
-  setTheme(int index) {
-    themeIndex = index;
+  get switchTheme {
+    isDark = !isDark;
+    Preference.setBool(PrefKeys.isDark, isDark);
     notifyListeners();
   }
-
-  getTheme(int index) => Themes.all[index];
 }

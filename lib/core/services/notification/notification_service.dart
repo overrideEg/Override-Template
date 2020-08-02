@@ -1,85 +1,130 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:device_info/device_info.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-class NotificationType {}
+import '../auth/authentication_service.dart';
 
 //inetiated at the app start to listen to notifications..
-class FirebaseNotifications {
-  static FirebaseMessaging _firebaseMessaging;
+class NotificationService {
+  bool _isSettedUp = false;
 
-  ///made to not everytime restart app the notification is setted up again
-  static bool _isSettedUp = false;
-  static setUpListeners(context) {
-    if (_isSettedUp) {
-      return;
-    }
-    _isSettedUp = true;
-    _firebaseMessaging = FirebaseMessaging();
+  final AuthenticationService auth;
+  List<dynamic> userNotifications;
 
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        await _handleNotification(context);
-        operateMessage(message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        operateMessage(message);
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        operateMessage(message);
-      },
-    );
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-    if (Platform.isIOS) getIOSPermission();
+  NotificationService({this.auth});
 
-    _firebaseMessaging.getToken().then((token) {
-      // token.log(title: 'fCM token');
-      // Prefrence.setString(PrefKeys.gcmToken, token);
-    });
-  }
+  Future<void> init(context) async {
+    if (!_isSettedUp) {
+      _isSettedUp = true;
 
-  static Future _handleNotification(context) async {}
+      String token = await _firebaseMessaging.getToken();
+      print("Firebase token : $token");
 
-  static operateMessage(Map<String, dynamic> message) {
-    try {
-      // final notificationItem = NotificationItem.fromJson(message['data']);
-      // if (notificationItem.offerId != null) navigateToOffer(notificationItem.offerId);
-    } catch (e) {
-      print('\n\n operateMessage ERROR:' + e.toString() + '\n\n');
+      _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage : $message");
+          operateMessage(message);
+        },
+        onResume: (Map<String, dynamic> message) async {
+          operateMessage(message);
+          print("onResume : $message");
+        },
+        onLaunch: (Map<String, dynamic> message) async {
+          operateMessage(message);
+          print("onLunch : $message");
+        },
+      );
+
+      if (Platform.isIOS) await getIOSPermission();
+
+      await _firebaseMessaging.getToken().then(updateFCMToken);
+
+      await getNotifications();
     }
   }
 
-  static navigateToOffer(int offerID) async {
-    /**
-     * TO Test use this Post Request
-     * URL:https://fcm.googleapis.com/fcm/send
-     * 
-     * Header [{"key":"Content-Type","value":"application/json"]
-     * Header [{"key":"Authorization","value":" key=AAAAitv8Q7k:APA91bE8Bmf_I1EL1UdkKN2qu29CjUdidTUf9B80rtWT4YmZl4tDzfuH2bvYjeS-ugRhL_XJON9xcZ2yr9_PG_9eLvEk2DU44pMaAGjdwHGi6IplcrRYBLtT78v9rXL39KKTSWEX86GO"]
-     * Body {
-              "notification": {"title": "50% OFF !","body": "Save 50% on selected items","name":"petsooq","image":"PETSOOQ IMAGEURL"},
-              "priority": "high",
-              "data": {"click_action": "FLUTTER_NOTIFICATION_CLICK","offer_id":1,"title": "50% OFF !","body": "Save 50% on selected items"},
-              "to": "Current FCM TOKEN"
-            }
-     */
-
+  Future<void> getNotifications() async {
     try {
-      // if (homePage.homeContext == null) {
-      //   print('context is null trying again in 2 seconds');
-      //   await Future.delayed(Duration(seconds: 2), () => navigateToOffer(offerID));
-      // } else {
-      //   // Navigator.push(context, shahset el items)
-      //   //TODO open Items page and fetch items with the given offer id (paginated)
-
+      // userNotifications = await auth.api.getNotifications(userId: auth.user.id, lastId: null);
+      // if (userNotifications != null && userNotifications.isNotEmpty) {
+      //   final newestNotification = userNotifications.first;
+      //   Preference.setInt(PrefKeys.newestNotificationId, newestNotification.id);
+      //   print('updated new notification ${newestNotification.id}');
+      //   print('last notification ${Preference.getInt(PrefKeys.lastSeenNotificationId)}');
       // }
     } catch (e) {
-      print('\n\nnavigateToCall Error: ' + e.toString() + '\n\n');
+      print('failed to update last notification $e');
     }
   }
 
-  static getIOSPermission() {
-    _firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) => print('IOS Notification Settings registered: $settings'));
+  Future<void> updateFCMToken(token) async {
+    if (token != null) {
+      try {
+        // auth.updateUserFcm(fcmToken: token);
+        // Preference.setString(PrefKeys.fcmToken, token);
+
+        // print('new fcm:$token');
+      } catch (e) {
+        print('error updating fcm');
+      }
+    }
+  }
+
+  Future handleNotification(context) async {
+    // User user;
+    // user = Provider.of<UserProvider>(context, listen: false).user;
+    // List<NotificationItem> items = await Api.instance.getNotifications(page: 1, userID: user.id, token: user.accessToken, length: 100);
+    // for (NotificationItem item in items) {
+    //   NotificationItem temp = await DB.notificationItemDAO.findItemByID(item.id);
+    //   if (temp == null) {
+    //     await DB.notificationItemDAO.insertItem(item..isSeen = false);
+    //   }
+    // }
+  }
+
+  operateMessage(Map<String, dynamic> message, {bool showOverlay = true}) async {
+    String body;
+    String title;
+    Map<dynamic, dynamic> data;
+    final deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isIOS && int.parse((await deviceInfo.iosInfo).systemVersion.split('.')[0]) < 13) {
+      final messageData = message['aps']['alert'];
+      title = messageData['title'];
+      body = messageData['body'];
+      data = message['data'];
+    } else {
+      final messageData = message['notification'];
+      title = messageData['title'];
+      body = messageData['body'];
+      data = message['data'];
+    }
+    // Preference.setInt(PrefKeys.newestNotificationId, (Preference.getInt(PrefKeys.newestNotificationId) ?? 0) + 1);
+
+    if (showOverlay) {
+      // showOverlayNotification((context) {
+      // return Notify(title: title, body: body, data: data);
+      // }, duration: Duration(seconds: 4));
+    }
+
+    // try {
+    //   final notificationItem = NotificationItem.fromJson(message['data']);
+    //   if (notificationItem.offerId != null) navigateToOffer(notificationItem.offerId);
+    // } catch (e) {
+    //   print('\n\n operateMessage ERROR:' + e.toString() + '\n\n');
+    // }
+  }
+
+  getIOSPermission() async {
+    await _firebaseMessaging
+        .requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true, provisional: true));
+
+    // final iosSubscription = _firebaseMessaging.onIosSettingsRegistered.listen((data) {
+    //       _saveDeviceToken();
+    //     });
   }
 }

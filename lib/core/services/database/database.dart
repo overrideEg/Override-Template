@@ -1,9 +1,4 @@
-import 'dart:async';
-
 import 'package:floor/floor.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart' as sqflite;
-import 'package:testapp/models/item_model.dart';
 
 import 'entities/user.dart';
 
@@ -20,7 +15,7 @@ abstract class AppDatabase extends FloorDatabase {
 
 class DB extends AppDatabase {
   AppDatabase db;
-  Future<AppDatabase> get initialize async => db = await $FloorAppDatabase.databaseBuilder('flutter_database.db').build();
+  // Future<AppDatabase> get initialize async => db = await $FloorAppDatabase.databaseBuilder('flutter_database.db').build();
 
   @override
   UserDao get userDao => db.userDao;
