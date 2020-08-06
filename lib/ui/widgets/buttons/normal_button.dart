@@ -1,6 +1,7 @@
-import 'package:ez_localization/ez_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:testapp/ui/shared/styles/colors.dart';
+import 'package:testapp/core/services/localization/localization.dart';
+
+import '../../../ui/styles/colors.dart';
 
 class NormalButton extends StatelessWidget {
   final bool localize;
@@ -9,11 +10,19 @@ class NormalButton extends StatelessWidget {
   final String text;
   final EdgeInsets margin;
   final Function onPressed;
-  const NormalButton({Key key, this.localize = true, this.onPressed, this.text = 'ok', this.width = 322, this.height = 46, this.margin = const EdgeInsets.only(top: 22)}) : super(key: key);
+  const NormalButton(
+      {Key key,
+      this.localize = true,
+      this.onPressed,
+      this.text = 'ok',
+      this.width = 322,
+      this.height = 46,
+      this.margin = const EdgeInsets.only(top: 22)})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final locale = EzLocalization.of(context);
+    final locale = AppLocalizations.of(context);
 
     return Container(
       width: width,
@@ -28,7 +37,8 @@ class NormalButton extends StatelessWidget {
         ),
         textColor: Colors.white,
         // padding: EdgeInsets.all(0),
-        child: Text(localize ? locale.get(text) : text, textAlign: TextAlign.center, style: TextStyle(color: AppColors.accentText, fontWeight: FontWeight.w400, fontSize: 20)),
+        child: Text(localize ? locale.get(text) : text,
+            textAlign: TextAlign.center, style: TextStyle(color: AppColors.accentText, fontWeight: FontWeight.w400, fontSize: 20)),
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PrefKeys {
   static const String gcmToken = 'gcmToken';
   static const String firstLaunch = 'firstLaunch';
+  static const String isDark = 'isDark';
+  static const String languageCode = 'language_code';
   static const String userLogged = 'userLogged';
   static const String themeIndex = 'themeIndex';
   static const String lastNotificationOpen = 'lastNotificationOpen';

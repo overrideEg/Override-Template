@@ -1,12 +1,12 @@
 // // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// part of 'database.dart';
+part of 'database.dart';
 
 // // **************************************************************************
 // // FloorGenerator
 // // **************************************************************************
 
-// class $FloorAppDatabase {
+class $FloorAppDatabase {
 //   /// Creates a database builder for a persistent database.
 //   /// Once a database is built, you should keep a reference to it and re-use it.
 //   static _$AppDatabaseBuilder databaseBuilder(String name) =>
@@ -605,4 +605,4 @@
 //     await _searchModelInsertionAdapter.insert(
 //         item, sqflite.ConflictAlgorithm.abort);
 //   }
-// }
+}
