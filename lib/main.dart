@@ -1,7 +1,9 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/core/services/adds/adds.dart';
 import 'package:testapp/core/services/preference/preference.dart';
 
 import 'core/services/localization/localization.dart';
@@ -11,6 +13,7 @@ import 'ui/routes/route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize(AddsService.appId);
   await Preference.init();
 
   runApp(MyApp());
