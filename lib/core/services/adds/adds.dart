@@ -1,57 +1,35 @@
-// import 'package:firebase_admob/firebase_admob.dart';
+import 'dart:io';
 
-// class Adds {
-//   Adds._internal() {
-//     FirebaseAdMob.instance
-//         .initialize(appId: "ca-app-pub-6477278662672544~7624942022");
-//   }
-//   static final Adds instance = Adds._internal();
+// <manifest>
+//     <application>
+//         <meta-data
+//             android:name="com.google.android.gms.ads.APPLICATION_ID"
+//             android:value="ca-app-pub-################~##########"/>  ~~~Replace with your real AdMob app ID
+//     </application>
+// </manifest>
 
-//   String testDevice = "";
-//   static final MobileAdTargetingInfo targetInfo = new MobileAdTargetingInfo(
-//     testDevices: <String>[],
-//     keywords: <String>['inventory', 'scanner', 'qunter'],
-//     childDirected: true,
-//   );
-//   BannerAd _bannerAd;
-//   InterstitialAd _interstitialAd;
+// Info.plist changes
+// Admob requires the App ID to be included in Info.plist.
 
-//   void showBanner() {
-//     _bannerAd = createBannerAdd()
-//       ..load()
-//       ..show(anchorOffset: 90.0, anchorType: AnchorType.top);
-//   }
+// <key>GADApplicationIdentifier</key>
+// <string>[ADMOB_APP_ID]</string>
 
-//   void showFullScreen() {
-//     _interstitialAd = createInterstitialAd()
-//       ..load()
-//       ..show();
-//   }
+class AddsService {
+  static String get appId {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-3940256099942544~1458002511';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-2371248747511613~4363131048';
+    }
+    return null;
+  }
 
-//   void closeBanner() {
-//     _bannerAd.dispose();
-//   }
-
-//   void closeFullScreen() {
-//     _interstitialAd.dispose();
-//   }
-
-//   InterstitialAd createInterstitialAd() {
-//     return InterstitialAd(
-//         adUnitId: "ca-app-pub-6477278662672544/4718194195",
-//         targetingInfo: targetInfo,
-//         listener: (MobileAdEvent event) {
-//           print("banner event: $event");
-//         });
-//   }
-
-//   BannerAd createBannerAdd() {
-//     return BannerAd(
-//         adUnitId: "ca-app-pub-6477278662672544/1627328122",
-//         size: AdSize.largeBanner,
-//         targetingInfo: targetInfo,
-//         listener: (MobileAdEvent event) {
-//           print("banner event: $event");
-//         });
-//   }
-// }
+  static String get homeBannerAdUnitId1 {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-3940256099942544/2934735716';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-2371248747511613/2587014947';
+    }
+    return null;
+  }
+}
