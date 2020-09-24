@@ -11,7 +11,7 @@ class PostPageModel extends BaseNotifier {
   someFunction() async {
     await Future.delayed(Duration(seconds: 5));
 
-    setState(state: NotifierState.loaded);
+    setState(state: NotifierState.idle);
   }
 
   renderAgain() {

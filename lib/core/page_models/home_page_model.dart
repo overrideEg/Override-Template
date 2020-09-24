@@ -28,7 +28,7 @@ class HomePageModel extends BaseNotifier {
 
     Logger().wtf("What a terrible failure log");
 
-    setState(state: NotifierState.loaded);
+    setState(state: NotifierState.idle);
   }
 
   openPostPage(BuildContext context) async {

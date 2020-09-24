@@ -23,6 +23,23 @@ dependencies:
     sdk: flutter
 
   
+  #Logic
+  dio: ^3.0.7
+  connectivity: ^0.4.6 #TODO config ios
+  firebase_messaging: ^6.0.9 #TODO config ios
+  permission_handler: ^5.0.0+hotfix.3 #TODO config ios
+
+  
+  cached_network_image: ^2.0.0
+ 
+  
+  #data presistance
+  path_provider: ^1.3.0
+  cloud_firestore: #TODO config ios
+  firebase_core: #^0.4.4+3
+  shared_preferences:
+  device_info: ^0.4.1+4 #TODO config ios
+
   #UI
   overlay_support:
   base_notifier: ^0.0.2
@@ -34,15 +51,16 @@ dependencies:
 
   logger:
   provider:
-  dio: ^3.0.7
-  shared_preferences:
-  google_fonts: ^0.2.0
-  connectivity: ^0.4.6
-  device_info: ^0.4.1+4
   fluttertoast: ^3.1.3
   page_transition: ^1.1.5
+  url_launcher: ^5.5.0
+  carousel_slider: ^2.2.1
+  google_fonts: ^0.2.0
   cupertino_icons: ^0.1.2
-  firebase_messaging: ^6.0.9
+  pull_to_refresh: ^1.5.8
+  flutter_rating_bar: ^3.0.1+1
+  adobe_xd:
+  flutter_svg: ^0.18.0
 
 
 dev_dependencies:
