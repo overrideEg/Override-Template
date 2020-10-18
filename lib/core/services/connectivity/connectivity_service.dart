@@ -15,10 +15,6 @@ class ConnectivityService extends ChangeNotifier {
   StreamController<bool> connectivityStreamController = StreamController.broadcast();
   Stream<bool> get connectionChange => connectivityStreamController.stream;
 
-  // //flutter_connectivity
-  // final Connectivity _connectivity = Connectivity();
-
-  // StreamSubscription<ConnectivityResult> subscription;
   ConnectivityService() {
     init();
   }
@@ -53,12 +49,10 @@ class ConnectivityService extends ChangeNotifier {
   _checkConnection(ConnectivityResult result) async {
     if (result == ConnectivityResult.none) {
       _connected = false;
-      // Logger().i('🍉connected: $_connected');
       connectivityStreamController.sink.add(_connected);
       notifyListeners();
     } else if (!_connected) {
       _connected = await _connectionValid;
-      // Logger().i('🍉send connected: $_connected');
       connectivityStreamController.sink.add(_connected);
       notifyListeners();
     }

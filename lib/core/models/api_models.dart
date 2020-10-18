@@ -14,11 +14,19 @@ class Comment {
 class User {
   final String name;
   final String phoneNumber;
+  final String token;
 
   User({
     this.name,
+    this.token,
     this.phoneNumber,
   });
+
+  toJson() {
+    ////TODO  implementation
+  }
+
+  static User fromJson(decode) {}
 }
 
 class LoginResponse {

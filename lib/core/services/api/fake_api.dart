@@ -4,9 +4,6 @@ import 'api.dart';
 
 class FakeApi implements Api {
   @override
-  String serverPAth = 'dummy bath';
-
-  @override
   Future<List<Comment>> getCommentsForPost(int postId) async {
     await Future.delayed(Duration(seconds: 4));
 
