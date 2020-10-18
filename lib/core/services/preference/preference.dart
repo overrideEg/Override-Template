@@ -1,8 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefKeys {
-  static const String gcmToken = 'gcmToken';
+  static const String fcmToken = 'fcmToken';
   static const String firstLaunch = 'firstLaunch';
+  static const String token = 'token';
+  static const String userData = 'userData';
   static const String isDark = 'isDark';
   static const String languageCode = 'language_code';
   static const String userLogged = 'userLogged';

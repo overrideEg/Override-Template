@@ -1,10 +1,8 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:base_notifier/base_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/core/models/api_models.dart';
 import 'package:testapp/core/page_models/post_page_model.dart';
-import 'package:testapp/core/services/adds/adds.dart';
 import 'package:testapp/ui/pages/post_page/widgets/post_content_widget.dart';
 import 'package:testapp/ui/styles/colors.dart';
 
@@ -32,13 +30,6 @@ class PostPage extends StatelessWidget {
                 staticContent(),
                 renderWidget(model),
                 Expanded(child: Align(alignment: Alignment.bottomCenter, child: PostContentWidget())),
-                AdmobBanner(
-                  adUnitId: AddsService.homeBannerAdUnitId1,
-                  adSize: AdmobBannerSize.LARGE_BANNER,
-                  listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-                    // handleEvent(event, args, 'Banner');
-                  },
-                ),
               ],
             ),
           ),
