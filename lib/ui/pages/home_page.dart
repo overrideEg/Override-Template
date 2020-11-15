@@ -16,14 +16,20 @@ class HomePage extends StatelessWidget {
       model: HomePageModel(api: Provider.of(context)),
 
       ///📌 the static part of the scree that dont need to be rendered every time.
-      staticChild: Text("this widget will not get rerendered over setStates"),
+      staticChild: Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+          child: Text("this widget will not get rerendered over setStates")),
 
       ///🦄 the builder function that gets fired every time setState is called or on the first frame render.
       builder: (context, model, child) {
         ///wrapping the scaffold with focus widget hepls improving the user experience when using text forms if exists in this page
         return FocusWidget(
           child: Scaffold(
-            appBar: AppBar(title: Text('Override architecture example'), backgroundColor: Colors.blue),
+            appBar: AppBar(
+                title: Text('Override architecture example'),
+                backgroundColor: Colors.blue),
 
             ///🧠use constant colors to improve readability
             backgroundColor: AppColors.primaryBackground,
@@ -63,8 +69,10 @@ class HomePage extends StatelessWidget {
         Text('last screen render at: ${DateTime.now().toString()}'),
         RaisedButton(
           onPressed: () => model.renderAgain(),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-          child: Text('press me to render again', style: TextStyle(color: Colors.white)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          child: Text('press me to render again',
+              style: TextStyle(color: Colors.white)),
           color: Colors.blue,
         ),
       ],
@@ -72,17 +80,17 @@ class HomePage extends StatelessWidget {
   }
 
   navigateWidget(BuildContext context, HomePageModel model) {
-    return Expanded(
-        child: Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         RaisedButton(
           onPressed: () => model.openPostPage(context),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           child: Text('open post page', style: TextStyle(color: Colors.white)),
           color: Colors.blue,
         ),
       ],
-    ));
+    );
   }
 }

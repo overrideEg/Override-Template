@@ -13,7 +13,7 @@ import 'package:testapp/core/services/theme/theme_provider.dart';
 import '../services/connectivity/connectivity_service.dart';
 import '../services/notification/notification_service.dart';
 
-const bool USE_FAKE_IMPLEMENTATION = true;
+const bool USE_FAKE_IMPLEMENTATION = false;
 
 List<SingleChildWidget> providers = [
   ...independentServices,
