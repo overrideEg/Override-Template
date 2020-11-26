@@ -18,7 +18,6 @@ void main() async {
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-
 // This widget is the root of your application.
 class MyApp extends StatelessWidget {
   @override
