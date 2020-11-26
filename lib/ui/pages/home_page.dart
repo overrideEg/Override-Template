@@ -2,6 +2,7 @@ import 'package:base_notifier/base_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/core/page_models/home_page_model.dart';
+import 'package:testapp/core/services/database/database_helper.dart';
 import 'package:testapp/ui/styles/colors.dart';
 import 'package:ui_utils/ui_utils.dart';
 
@@ -11,6 +12,8 @@ class HomePage extends StatelessWidget {
   // 🧠📌🦄🔥
   @override
   Widget build(BuildContext context) {
+    final dbHelper = DatabaseHelper.instance;
+
     return BaseWidget<HomePageModel>(
       ///🧠initialize the page model
       model: HomePageModel(api: Provider.of(context)),
@@ -40,6 +43,29 @@ class HomePage extends StatelessWidget {
                   model.busy ? loadingWidget() : dataWidget(context, model),
                   renderWidget(model),
                   navigateWidget(context, model),
+                  RaisedButton(
+                    onPressed: () async {
+                      // row to insert
+                      Map<String, dynamic> row = {
+                        DatabaseHelper.columnToken: 'dsafsdsfdd',
+                        DatabaseHelper.columnUserInfo: '{id:2}'
+                      };
+                      final id = await dbHelper.insert(row);
+                      print('inserted row id: $id');
+                    },
+                    child: Text("insert"),
+                    color: Colors.red,
+                  ),
+                  RaisedButton(
+                    onPressed: () async {
+                      var res = await dbHelper.queryAllRows();
+                      res.forEach((element) {
+                        print(element);
+                      });
+                    },
+                    child: Text("query"),
+                    color: Colors.red,
+                  ),
                 ],
               ),
             ),

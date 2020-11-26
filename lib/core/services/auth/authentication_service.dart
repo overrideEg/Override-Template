@@ -7,8 +7,9 @@ class AuthenticationService {
   final Api _api;
 
   AuthenticationService({Api api}) : _api = api;
-  Stream<User> get user => _userController.stream;
   StreamController<User> _userController = StreamController<User>();
+
+  Stream<User> get user => _userController.stream;
 
   Future<bool> login(int userId) async {
     var fetchedUser = await _api.getUser(userId);
