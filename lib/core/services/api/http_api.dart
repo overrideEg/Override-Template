@@ -22,6 +22,7 @@ class HttpApi implements Api {
 
     final dio = Dio(BaseOptions(
         baseUrl: serverPath, connectTimeout: 60000, receiveTimeout: 60000));
+        
     final options = Options(
         headers: headers, contentType: contentType, responseType: responseType);
 
