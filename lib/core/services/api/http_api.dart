@@ -67,7 +67,7 @@ class HttpApi implements Api {
 
       print('$type $endPoint\n$headers\nstatusCode:${response.statusCode}\n');
 
-      if (response.statusCode == 200 || response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return Right(response.data); //map of string dynamic...
       } else {
         return Left(ServerError(response.data['message']));
