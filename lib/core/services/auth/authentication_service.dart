@@ -1,24 +1,29 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
 import 'package:testapp/core/models/api_models.dart';
 import 'package:testapp/core/services/api/api.dart';
+import 'package:testapp/core/services/api/http_api.dart';
 
 class AuthenticationService {
-  final Api _api;
+  final HttpApi _api = Get.find();
 
-  AuthenticationService({Api api}) : _api = api;
-  StreamController<User> _userController = StreamController<User>();
+  User _user;
+  User get user => _user;
 
-  Stream<User> get user => _userController.stream;
+  // AuthenticationService();
 
   Future<bool> login(int userId) async {
     var fetchedUser = await _api.getUser(userId);
 
-    var hasUser = fetchedUser != null;
-    if (hasUser) {
-      _userController.add(fetchedUser);
+    if (fetchedUser != null) {
+      _user = fetchedUser;
     }
 
-    return hasUser;
+    // if (hasUser) {
+    //   _userController.add(fetchedUser);
+    // }
+
+    return fetchedUser != null ? true : false;
   }
 }

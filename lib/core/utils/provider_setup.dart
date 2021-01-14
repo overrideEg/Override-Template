@@ -28,9 +28,9 @@ List<SingleChildWidget> independentServices = [
 ];
 
 List<SingleChildWidget> dependentServices = [
-  ProxyProvider<Api, AuthenticationService>(
-      update: (context, api, authenticationService) =>
-          AuthenticationService(api: api)),
+  // ProxyProvider<Api, AuthenticationService>(
+  //     update: (context, api, authenticationService) =>
+  //         AuthenticationService(api: api)),
   ProxyProvider<AuthenticationService, NotificationService>(
       update: (context, auth, notificationService) =>
           NotificationService(auth: auth)),
@@ -39,7 +39,7 @@ List<SingleChildWidget> dependentServices = [
 List<SingleChildWidget> uiConsumableProviders = [
   ChangeNotifierProvider(create: (_) => ThemeProvider()),
   ChangeNotifierProvider<AppLanguageModel>(create: (_) => AppLanguageModel()),
-  StreamProvider<User>(
-      create: (context) =>
-          Provider.of<AuthenticationService>(context, listen: false).user),
+  // StreamProvider<User>(
+  //     create: (context) =>
+  //         Provider.of<AuthenticationService>(context, listen: false).user),
 ];
