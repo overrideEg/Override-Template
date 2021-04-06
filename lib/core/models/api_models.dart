@@ -23,7 +23,7 @@ class User {
   });
 
   toJson() {
-    ////TODO  implementation
+    ////TODO: implementation
   }
 
   static User fromJson(decode) {}
