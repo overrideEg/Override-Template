@@ -7,7 +7,7 @@ class PostContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<PostPageModel>.cosnume(
+    return BaseWidget<PostsPageModel>.cosnume(
       builder: (context, model, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -19,7 +19,13 @@ class PostContentWidget extends StatelessWidget {
             ),
             Container(
               height: 200,
-              child: model.busy ? loadingWidget() : dataWidget(context, model),
+              child: model.busy
+                  ? loadingWidget()
+                  : model.hasError
+                      ? Center(
+                          child: Text("Error"),
+                        )
+                      : dataWidget(context, model),
             ),
           ],
         );
@@ -27,20 +33,27 @@ class PostContentWidget extends StatelessWidget {
     );
   }
 
-  loadingWidget() => Container(height: 66, width: 66, child: Center(child: CircularProgressIndicator()));
+  loadingWidget() => Center(child: CircularProgressIndicator());
 
-  dataWidget(BuildContext context, PostPageModel model) {
+  dataWidget(BuildContext context, PostsPageModel model) {
     if (model.state == NotifierState.error) {
       return Text('error retreving data');
     } else {
-      return ListView.builder(itemBuilder: (context, index) {
-        return RaisedButton(
-          onPressed: () => {},
-          child: Text('post comments'),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-          color: Colors.blue,
-        );
-      });
+      return ListView.builder(
+          itemCount: model.posts.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () => {},
+                child: Text('post comments'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0)),
+                color: Colors.blue,
+              ),
+            );
+          });
     }
   }
 }
