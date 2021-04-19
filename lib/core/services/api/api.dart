@@ -28,21 +28,32 @@ class Header {
 }
 
 class EndPoint {
-  static const String TODO = 'todos';
   static const String REGISTER = 'register';
-  static const String TOKEN = 'auth/token';
-  static const String USER = 'user';
-  static const String POST = 'posts';
+  static const String REQUEST_TOKEN = 'auth/requestToken';
+  static const String USER = 'User';
+  static const String HOME = 'Home/all';
+  static const String RESEND_CODE = 'auth/resendActiveCode';
+  static const String ONBOARDING = 'onBoarding/all';
+  static const String VERIFY_USER = 'auth/changeStatus';
+  static const String POST = 'post';
   static const String COMMENT = 'comment';
+  static const String CONTACTUS = 'ContactUs';
+  static const String AUTH = 'auth/loginMobile';
   static const String REPLY = 'reply';
+  static const String ADDADDRESS = 'User/addAddress';
+  static const String GETADDRESSES = 'User/getAddress';
+  static const String REMOVEADDREESS = 'User/remove/address/';
+  static const String UPLOAD_IMAGE = 'File/upload';
+  static const String UPLOAD_MULTIPLE_IMAGE = 'File/uploadMultiple';
+  static const String SEARCHUTILITY = 'Utility/search';
+  static const String ALLUTILITY = 'Utility/all';
+  static const String UTILITYBYSUBCATEGORY = 'Utility/subcategory/';
+  static const String OURCONTACT = 'OurContact/all';
+  static const String CONTRACT_REQUEST = 'ContractRequest';
+  static const String MY_ORDERS = 'ContractRequest/myOrder';
+  static const String UPDATE_FCM = 'User/updateFcm';
+  static const String REFRESH_TOKEN = 'auth/refreshToken';
+  static const String NOTIFICATION = 'Notification';
 }
 
-abstract class Api {
-  Future<LoginResponse> login({String username, String password});
-
-  Future<User> getUser(int userId);
-
-  Future<List<Post>> getPostsForUser(int userId);
-
-  Future<List<Comment>> getCommentsForPost(int postId);
-}
+abstract class Api {}

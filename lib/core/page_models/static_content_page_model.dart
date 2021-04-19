@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:testapp/core/services/api/api.dart';
 
 class StaticContentPageModel extends BaseNotifier {
-  final Api api;
+  final Api? api;
 
-  StaticContentPageModel({@required this.api}) {
+  StaticContentPageModel({this.api}) {
     someFunction();
   }
   someFunction() async {

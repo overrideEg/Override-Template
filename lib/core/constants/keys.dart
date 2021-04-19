@@ -1,3 +1,3 @@
 class Keys {
-  static final String comments = 'comments';
+  static final String? comments = 'comments';
 }

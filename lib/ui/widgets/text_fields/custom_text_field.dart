@@ -5,14 +5,14 @@ class CustomTextFormField extends StatelessWidget {
   final int lines;
   final bool secure;
   final Color color;
-  final String hint;
-  final TextEditingController controller;
+  final String? hint;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
-  final Icon icon;
-  final String Function(String) validator;
+  final Icon? icon;
+  final String? Function(String?)? validator;
 
   const CustomTextFormField(
-      {Key key,
+      {Key? key,
       this.secure = false,
       this.padding = const EdgeInsets.symmetric(vertical: 5.0),
       this.controller,
@@ -29,7 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: padding,
       child: TextFormField(
-        validator: validator,
+        validator: validator!,
         maxLines: lines,
         keyboardType: keyboardType,
         obscureText: secure,

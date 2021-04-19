@@ -7,7 +7,7 @@ import 'package:testapp/ui/pages/post_page/widgets/post_content_widget.dart';
 import 'package:testapp/ui/styles/colors.dart';
 
 class StaticContentPage extends StatelessWidget {
-  const StaticContentPage({Key key, Post post}) : super(key: key);
+  const StaticContentPage({Key? key, dynamic? post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

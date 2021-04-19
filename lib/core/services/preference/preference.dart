@@ -13,37 +13,37 @@ class PrefKeys {
 }
 
 class Preference {
-  static SharedPreferences sb;
+  static SharedPreferences? sb;
   static Future<void> init() async {
     if (sb == null) sb = await SharedPreferences.getInstance();
   }
 
-  static String getString(String key) {
+  static String? getString(String key) {
     try {
-      return sb.getString(key);
+      return sb!.getString(key);
     } catch (e) {
       return null;
     }
   }
 
-  static int getInt(String key) {
+  static int? getInt(String key) {
     try {
-      return sb.getInt(key);
+      return sb!.getInt(key);
     } catch (e) {
       return null;
     }
   }
 
-  static bool getBool(String key) {
+  static bool? getBool(String key) {
     try {
-      return sb.getBool(key);
+      return sb!.getBool(key);
     } catch (e) {
       print(e);
       return null;
     }
   }
 
-  static Future<bool> setString(String key, String value) async {
+  static Future<bool?> setString(String key, String value) async {
     final sb = await SharedPreferences.getInstance();
     try {
       return sb.setString(key, value);
@@ -53,36 +53,36 @@ class Preference {
     }
   }
 
-  static Future<bool> setInt(String key, int value) async {
+  static Future<bool?> setInt(String key, int value) async {
     try {
-      return sb.setInt(key, value);
+      return sb!.setInt(key, value);
     } catch (e) {
       print(e);
       return null;
     }
   }
 
-  static Future<bool> setBool(String key, bool value) async {
+  static Future<bool?> setBool(String key, bool value) async {
     try {
       print(key);
-      return await sb.setBool(key, value);
+      return await sb!.setBool(key, value);
     } catch (e) {
       print(e);
       return null;
     }
   }
 
-  static Future<bool> remove(String key) async {
+  static Future<bool?> remove(String key) async {
     try {
-      return await sb.remove(key);
+      return await sb!.remove(key);
     } catch (e) {
       return null;
     }
   }
 
-  static Future<bool> clear() async {
+  static Future<bool?> clear() async {
     try {
-      return await sb.clear();
+      return await sb!.clear();
     } catch (e) {
       return null;
     }

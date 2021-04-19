@@ -1,4 +1,5 @@
 // provider_setup.dart
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:testapp/core/services/api/api.dart';
@@ -21,13 +22,13 @@ List<SingleChildWidget> providers = [
 
 List<SingleChildWidget> independentServices = [
   // Provider(create: (_) => () => DB()),
-  Provider<Api>(create: (_) => USE_FAKE_IMPLEMENTATION ? FakeApi() : HttpApi()),
+  Provider(create: (BuildContext context) => HttpApi()),
   ChangeNotifierProvider<ConnectivityService>(
       create: (context) => ConnectivityService()),
 ];
 
 List<SingleChildWidget> dependentServices = [
-  ProxyProvider<Api, AuthenticationService>(
+  ProxyProvider<HttpApi, AuthenticationService>(
       update: (context, api, authenticationService) =>
           AuthenticationService(api: api)),
   ProxyProvider<AuthenticationService, NotificationService>(

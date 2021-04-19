@@ -12,7 +12,8 @@ class ConnectivityService extends ChangeNotifier {
   bool get connected => _connected;
 
   //stream allow to subscribe to connection changes
-  StreamController<bool> connectivityStreamController = StreamController.broadcast();
+  StreamController<bool> connectivityStreamController =
+      StreamController.broadcast();
   Stream<bool> get connectionChange => connectivityStreamController.stream;
 
   ConnectivityService() {
@@ -33,7 +34,7 @@ class ConnectivityService extends ChangeNotifier {
     } else if (Platform.isIOS) {
       return (await deviceInfo.iosInfo).identifierForVendor;
     }
-    return null;
+    return "";
   }
 
   Future<void> get checkApiLevel async {

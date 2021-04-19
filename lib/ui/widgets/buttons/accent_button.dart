@@ -4,14 +4,14 @@ import 'package:testapp/core/services/localization/localization.dart';
 import '../../../ui/styles/colors.dart';
 
 class AccentButton extends StatelessWidget {
-  final bool localize;
-  final double width;
-  final double height;
-  final String text;
-  final EdgeInsets margin;
-  final Function onPressed;
+  final bool? localize;
+  final double? width;
+  final double? height;
+  final String? text;
+  final EdgeInsets? margin;
+  final Function? onPressed;
   const AccentButton(
-      {Key key,
+      {Key? key,
       this.localize = true,
       this.onPressed,
       this.text = 'ok',
@@ -29,15 +29,19 @@ class AccentButton extends StatelessWidget {
       height: height,
       margin: margin,
       child: FlatButton(
-        onPressed: onPressed,
+        onPressed: onPressed!.call(),
         color: Color.fromARGB(255, 249, 242, 183),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(23)),
         ),
         textColor: Color.fromARGB(255, 209, 165, 75),
         // padding: EdgeInsets.all(0),
-        child: Text(localize ? locale.get(text) : text,
-            textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryText, fontWeight: FontWeight.w400, fontSize: 20)),
+        child: Text(localize! ? locale!.get(text!)! : text!,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: AppColors.secondaryText,
+                fontWeight: FontWeight.w400,
+                fontSize: 20)),
       ),
     );
   }

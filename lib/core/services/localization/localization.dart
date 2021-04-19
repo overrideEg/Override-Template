@@ -7,13 +7,13 @@ import '../preference/preference.dart';
 
 class AppLanguageModel extends ChangeNotifier {
   Locale _appLocale = Locale('en');
-  Locale get appLocal => _appLocale ?? Locale("en");
+  Locale get appLocal => _appLocale ;
 
   fetchLocale() async {
     if (Preference.getString(PrefKeys.languageCode) == null) {
       _appLocale = Locale('en');
     } else {
-      _appLocale = Locale(Preference.getString(PrefKeys.languageCode));
+      _appLocale = Locale(Preference.getString(PrefKeys.languageCode)!);
     }
     notifyListeners();
 
@@ -44,18 +44,20 @@ class AppLocalizations {
 
   // Helper method to keep the code in the widgets concise
   // Localizations are accessed using an InheritedWidget "of" syntax
-  static AppLocalizations of(BuildContext context) {
+  static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
   // Static member to have a simple access to the delegate from the MaterialApp
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
-  Map<String, String> _localizedStrings;
+  Map<String, String>? _localizedStrings;
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
-    String jsonString = await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
+    String jsonString = await rootBundle
+        .loadString('assets/languages/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -65,12 +67,13 @@ class AppLocalizations {
     return true;
   }
 
-  String get(String key) {
-    return _localizedStrings[key];
+  String? get(String key) {
+    return _localizedStrings![key];
   }
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override

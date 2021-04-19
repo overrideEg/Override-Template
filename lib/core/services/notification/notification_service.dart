@@ -12,11 +12,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 * 🦄initiated at the app start to listen to notifications..
 */
 class NotificationService {
-  final AuthenticationService auth;
-  List<dynamic> userNotifications;
+  final AuthenticationService? auth;
+  List<dynamic>? userNotifications;
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  final FirebaseMessaging? _firebaseMessaging = FirebaseMessaging.instance;
+  final FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -27,17 +27,17 @@ class NotificationService {
     importance: Importance.high,
   );
 
-  NotificationService({this.auth});
+  NotificationService({required this.auth});
 
   Future<void> init(context) async {
-    String token = await _firebaseMessaging.getToken();
+    String? token = await _firebaseMessaging!.getToken();
     print("Firebase token : $token");
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
+        flutterLocalNotificationsPlugin!.show(
             notification.hashCode,
             notification.title,
             notification.body,
@@ -62,7 +62,7 @@ class NotificationService {
 
     if (Platform.isIOS) await getIOSPermission();
 
-    await _firebaseMessaging.getToken().then(updateFCMToken);
+    await _firebaseMessaging!.getToken().then(updateFCMToken);
   }
 
   Future<void> updateFCMToken(token) async {
@@ -103,7 +103,7 @@ class NotificationService {
   }
 
   getIOSPermission() async {
-    await _firebaseMessaging.requestPermission(
+    await _firebaseMessaging!.requestPermission(
         announcement: true, criticalAlert: true, provisional: true);
     // (const IosNotificationSettings(
     //     sound: true, badge: true, alert: true, provisional: true));

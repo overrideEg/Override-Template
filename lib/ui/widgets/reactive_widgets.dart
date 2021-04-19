@@ -13,21 +13,19 @@ enum ReactiveFields {
 }
 
 class ReactiveField extends StatelessWidget {
-  @required
-  final ReactiveFields type;
-  @required
-  final String controllerName;
+  final ReactiveFields? type;
+  final String? controllerName;
   final int maxLines;
   final double width;
-  final Map<String, String> validationMesseges;
+  final Map<String, String>? validationMesseges;
   final TextInputType keyboardType;
-  final InputDecoration decoration;
-  final String hint, radioTitle, radioVal;
+  final InputDecoration? decoration;
+  final String? hint, radioTitle, radioVal;
   final Color borderColor, hintColor, textColor, fillColor, enabledBorderColor;
   final bool secure, autoFocus, readOnly, filled;
-  final List<dynamic> items;
-  final BuildContext context;
-  final String label;
+  final List<dynamic>? items;
+  final BuildContext? context;
+  final String? label;
   const ReactiveField(
       {this.type,
       this.controllerName,
@@ -82,7 +80,7 @@ class ReactiveField extends StatelessWidget {
           style: TextStyle(color: textColor),
           maxLines: maxLines,
           decoration: decoration != null
-              ? decoration
+              ? decoration!
               : InputDecoration(
                   // labelStyle: TextStyle(color: Colors.blue),
                   filled: filled,
@@ -122,7 +120,7 @@ class ReactiveField extends StatelessWidget {
           keyboardType: TextInputType.visiblePassword,
           style: TextStyle(color: textColor),
           decoration: decoration != null
-              ? decoration
+              ? decoration!
               : InputDecoration(
                   // labelStyle: TextStyle(color: Colors.blue),
                   filled: filled,
@@ -157,7 +155,7 @@ class ReactiveField extends StatelessWidget {
       case ReactiveFields.DROP_DOWN:
         return ReactiveDropdownField(
           hint: Text(hint ?? ""),
-          items: items
+          items: items!
               .map((item) => DropdownMenuItem<dynamic>(
                     value: item.id,
                     child: new Text(
@@ -168,7 +166,7 @@ class ReactiveField extends StatelessWidget {
               .toList(),
           style: TextStyle(color: Colors.black),
           decoration: decoration != null
-              ? decoration
+              ? decoration!
               : InputDecoration(
                   // labelStyle: TextStyle(color: Colors.blue),
                   filled: filled,
@@ -196,7 +194,6 @@ class ReactiveField extends StatelessWidget {
 
                   // fillColor: Colors.white,
                 ),
-          readOnly: readOnly,
           formControlName: controllerName,
 
           // style: TextStyle(color: textColor),
@@ -243,7 +240,7 @@ class ReactiveField extends StatelessWidget {
       case ReactiveFields.RADIO_LISTTILE:
         return ReactiveRadioListTile(
             formControlName: controllerName,
-            title: Text(radioTitle),
+            title: Text(radioTitle!),
             value: radioVal);
         break;
     }

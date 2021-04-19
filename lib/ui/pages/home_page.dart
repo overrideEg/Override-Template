@@ -7,7 +7,7 @@ import 'package:testapp/ui/styles/colors.dart';
 import 'package:ui_utils/ui_utils.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   // 🧠📌🦄🔥
   @override

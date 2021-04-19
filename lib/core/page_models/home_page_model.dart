@@ -10,7 +10,7 @@ import '../models/api_models.dart';
 class HomePageModel extends BaseNotifier {
   final Api api;
 
-  HomePageModel({@required this.api}) {
+  HomePageModel({required this.api}) {
     someFunction();
   }
   someFunction() async {
@@ -31,9 +31,7 @@ class HomePageModel extends BaseNotifier {
     setState(state: NotifierState.idle);
   }
 
-  openPostPage(BuildContext context) async {
-    UI.push(context, Routes.post(Post()));
-  }
+  openPostPage(BuildContext context) async {}
 
   renderAgain() {
     setState();

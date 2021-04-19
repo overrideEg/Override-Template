@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 enum ANIM_TYPE { slide_from_bottom, slide_from_right, scale }
 
 class AnimatedRoute extends PageRouteBuilder {
-  final Widget page;
-  final ANIM_TYPE type;
-  AnimatedRoute({@required this.page, @required this.type})
+  final Widget? page;
+  final ANIM_TYPE? type;
+  AnimatedRoute({this.page, this.type})
       : super(
             transitionDuration: Duration(milliseconds: 300),
             pageBuilder: (
@@ -13,7 +13,7 @@ class AnimatedRoute extends PageRouteBuilder {
               Animation<double> animation,
               Animation<double> secondaryAnimation,
             ) =>
-                page,
+                page!,
             transitionsBuilder: (
               BuildContext context,
               Animation<double> animation,
@@ -22,8 +22,7 @@ class AnimatedRoute extends PageRouteBuilder {
             ) {
               animation =
                   CurvedAnimation(curve: Curves.linear, parent: animation);
-
-              Widget ret;
+              late Widget ret;
 
               if (type == ANIM_TYPE.scale) {
                 ret = ScaleTransition(

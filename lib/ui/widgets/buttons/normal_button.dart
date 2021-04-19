@@ -6,20 +6,20 @@ import '../../styles/colors.dart';
 class NormalButton extends StatelessWidget {
   final bool localize;
   final bool busy;
-  final bool bold;
-  final double width;
-  final double height;
+  final bool? bold;
+  final double? width;
+  final double? height;
   final double raduis;
   final double elevation;
   final String text;
-  final Widget child;
+  final Widget? child;
   final Color color;
   final EdgeInsets margin;
   final EdgeInsets padding;
-  final Function onPressed;
+  final Function? onPressed;
   final Color textColor;
   const NormalButton(
-      {Key key,
+      {Key? key,
       this.busy = false,
       this.localize = true,
       this.child,
@@ -43,7 +43,8 @@ class NormalButton extends StatelessWidget {
     return Padding(
       padding: margin,
       child: MaterialButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(raduis)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(raduis)),
         elevation: elevation,
         hoverElevation: 0,
         focusElevation: 0,
@@ -52,16 +53,16 @@ class NormalButton extends StatelessWidget {
         minWidth: width ?? double.infinity,
         color: color,
         // height: 45,
-        onPressed: () => onPressed == null || busy ? {} : onPressed(),
+        onPressed: () => onPressed == null || busy ? {} : onPressed!.call(),
         child: Padding(
           padding: padding,
           child: child ??
               Text(
-                localize ? locale.get(text) : text,
+                localize ? locale!.get(text)! : text,
                 style: TextStyle(
                   color: textColor,
                   fontSize: 14,
-                  fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: bold! ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
         ),
